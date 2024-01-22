@@ -1,0 +1,2 @@
+module ConnectorTerminalsHelper
+end

@@ -1,0 +1,27 @@
+<div id="<%= dom_id wire %>">
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Primary color:</strong>
+    <%= wire.primary_color %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Secondary color:</strong>
+    <%= wire.secondary_color %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Gauge:</strong>
+    <%= wire.gauge %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Quantity:</strong>
+    <%= wire.quantity %>
+  </p>
+
+  <% if action_name != "show" %>
+    <%= link_to "Show this wire", wire, class: "rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+    <%= link_to "Edit this wire", edit_wire_path(wire), class: "rounded-lg py-3 ml-2 px-5 bg-gray-100 inline-block font-medium" %>
+    <hr class="mt-6">
+  <% end %>
+</div>

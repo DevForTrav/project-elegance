@@ -1,0 +1,20 @@
+
+<div class="">
+  <%= turbo_frame_tag "boat_details_form" do %>
+    <%= form_with url: boat_details_path, method: :get, data: { controller: "dependent-field", action: "change->dependent-field#submit"} do |form| %>
+      <div class="">
+        <%= form.collection_select :manufacturer, Boat.all, :id, :manufacturer, prompt: "Please select a manufacturer" %>
+
+        <%= form.collection_select :model, Boat.all, :id, :model, prompt: "Please select a model" %>
+
+        <%= form.collection_select :year, Boat.all, :id, :year, prompt: "Please select a year" %>
+
+        <%= form.submit "Submit", class: "inline-block px-5 py-3 font-medium bg-gray-100 rounded-lg" %>
+      </div> 
+    <% end %>
+  <% end %> 
+  <div class="pt-4">
+    <%= link_to "Components", components_path, class: "inline-block px-5 py-3 font-medium bg-gray-100 rounded-lg" %>
+  </div>
+
+</div>

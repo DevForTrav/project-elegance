@@ -1,0 +1,13 @@
+<div class="">
+  <%= turbo_frame_tag "boat_details_form", target:"_top" do %>
+    <%= form_with url: components_path, method: :get, data: { controller: "dependent-field", action: "change->dependent-field#submit"} do |form| %>
+      <div class="flex">
+        <%= form.collection_select :manufacturer, @boats, :manufacturer, :manufacturer, { prompt: false, selected: @manufacturer, include_blank: "Manufacturer" }, { class: " shadow rounded-md border border-gray-200 outline-none me-1 " }%>
+
+        <%= form.collection_select :model, @models, :second, :second, { prompt: false, selected: @model, include_blank: "Model" }, {class: "block shadow rounded-md border border-gray-200 outline-none me-1" } %>
+
+        <%= form.collection_select :year, @years, :second, :second, { prompt: false, selected: @year, include_blank: "Year" }, {class: "block shadow rounded-md border border-gray-200 outline-none me-1" } %>
+      </div> 
+    <% end %>
+  <% end %> 
+</div>

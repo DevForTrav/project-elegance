@@ -1,0 +1,27 @@
+<%= form_with(model: boat_wiring_harness, class: "contents") do |form| %>
+  <% if boat_wiring_harness.errors.any? %>
+    <div id="error_explanation" class="bg-red-50 text-red-500 px-3 py-2 font-medium rounded-lg mt-3">
+      <h2><%= pluralize(boat_wiring_harness.errors.count, "error") %> prohibited this boat_wiring_harness from being saved:</h2>
+
+      <ul>
+        <% boat_wiring_harness.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="my-5">
+    <%= form.label :boat_id %>
+    <%= form.text_field :boat_id, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
+  </div>
+
+  <div class="my-5">
+    <%= form.label :wiring_harness_id %>
+    <%= form.text_field :wiring_harness_id, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
+  </div>
+
+  <div class="inline">
+    <%= form.submit class: "rounded-lg py-3 px-5 bg-blue-600 text-white inline-block font-medium cursor-pointer" %>
+  </div>
+<% end %>

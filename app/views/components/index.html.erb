@@ -1,0 +1,12 @@
+<%= render "search_form" %>
+<% if notice.present? %>
+  <p class="inline-block px-3 py-2 mb-5 font-medium text-green-500 rounded-lg bg-green-50" id="notice"><%= notice %></p>
+<% end %>
+
+<div class="flex items-center justify-between">
+  <h1 class="text-4xl font-bold">Components</h1>
+  <%= link_to "New component", new_component_path, class: "rounded-lg py-3 px-5 bg-blue-600 text-white block font-medium" %>
+</div>
+<% @components.each do |category, components| %>
+  <%= render "components/category_dropdown", category: category,  components: components %>
+<% end %>

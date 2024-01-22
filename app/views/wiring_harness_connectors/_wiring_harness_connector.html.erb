@@ -1,0 +1,27 @@
+<div id="<%= dom_id wiring_harness_connector %>">
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Label:</strong>
+    <%= wiring_harness_connector.label %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Populated contacts:</strong>
+    <%= wiring_harness_connector.populated_contacts %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Wiring harness:</strong>
+    <%= wiring_harness_connector.wiring_harness_id %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Connector:</strong>
+    <%= wiring_harness_connector.connector_id %>
+  </p>
+
+  <% if action_name != "show" %>
+    <%= link_to "Show this wiring harness connector", wiring_harness_connector, class: "rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+    <%= link_to "Edit this wiring harness connector", edit_wiring_harness_connector_path(wiring_harness_connector), class: "rounded-lg py-3 ml-2 px-5 bg-gray-100 inline-block font-medium" %>
+    <hr class="mt-6">
+  <% end %>
+</div>

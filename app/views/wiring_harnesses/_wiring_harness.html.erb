@@ -1,0 +1,17 @@
+<div id="<%= dom_id wiring_harness %>">
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Name:</strong>
+    <%= wiring_harness.name %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Boat:</strong>
+    <%= wiring_harness.boat_id %>
+  </p>
+
+  <% if action_name != "show" %>
+    <%= link_to "Show this wiring harness", wiring_harness, class: "rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+    <%= link_to "Edit this wiring harness", edit_wiring_harness_path(wiring_harness), class: "rounded-lg py-3 ml-2 px-5 bg-gray-100 inline-block font-medium" %>
+    <hr class="mt-6">
+  <% end %>
+</div>

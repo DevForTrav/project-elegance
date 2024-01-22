@@ -1,0 +1,52 @@
+<div id="<%= dom_id circuit %>">
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Label:</strong>
+    <%= circuit.label %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Gauge:</strong>
+    <%= circuit.gauge %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Length:</strong>
+    <%= circuit.length %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Wiring harness:</strong>
+    <%= circuit.wiring_harness_id %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">P1 terminal:</strong>
+    <%= circuit.p1_terminal_id %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">P2 terminal:</strong>
+    <%= circuit.p2_terminal_id %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">P1 connector:</strong>
+    <%= circuit.p1_connector_id %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">P2 connector:</strong>
+    <%= circuit.p2_connector_id %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Wire:</strong>
+    <%= circuit.wire_id %>
+  </p>
+
+  <% if action_name != "show" %>
+    <%= link_to "Show this circuit", circuit, class: "rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+    <%= link_to "Edit this circuit", edit_circuit_path(circuit), class: "rounded-lg py-3 ml-2 px-5 bg-gray-100 inline-block font-medium" %>
+    <hr class="mt-6">
+  <% end %>
+</div>

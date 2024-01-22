@@ -1,0 +1,24 @@
+<div id="<%= dom_id boat %>" class="p-4 bg-white border rounded-lg shadow-sm">
+  <%= link_to boat_path(boat) do %>
+    <div class="flex items-center justify-between pt-2" data-controller="dropdown">
+        <h2 class="py-2 text-xl font-bold"><%= boat.name %></h2>
+        <div>
+          <% if action_name == 'show'%>
+            <div id= "boat-actions" class="relative inline-block text-left">
+              <button type="button" class="w-full justify-center gap-x-1.5 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50" data-action="dropdown#toggle" data-dropdown-target="button">
+                <svg xmlns="http://www.w3.org/2000/svg" height="16" width="4" viewBox="0 0 128 512"><!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M64 360a56 56 0 1 0 0 112 56 56 0 1 0 0-112zm0-160a56 56 0 1 0 0 112 56 56 0 1 0 0-112zM120 96A56 56 0 1 0 8 96a56 56 0 1 0 112 0z"/></svg>
+              </button>
+              <div class="absolute right-0 z-10 hidden w-56 mt-2 origin-top-right bg-white rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none" data-dropdown-target="menu">
+                <%= link_to "Edit this boat", edit_boat_path(boat), class: "text-gray-700 block px-4 py-2 text-sm" %>
+                <%= button_to "Destroy this boat", boat_path(boat), method: :delete, class: "text-gray-700 block px-4 py-2 text-sm" %>
+                <%= link_to "Back to boats", boats_path, class: "text-gray-700 block px-4 py-2 text-sm" %>
+              </div>
+            </div>
+          <% end %>
+        </div>
+    </div>
+    <div class="rounded-md">
+      <%= image_tag "2022_supreme_s220.jpeg", width: 300, class: "p-2 rounded-lg" %>
+    </div>
+  <% end %>
+</div>
