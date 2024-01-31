@@ -1,70 +1,64 @@
 <%= turbo_frame_tag @component do %>
-  <div class="pt-4 rounded-lg ">
-    <div class="grid grid-cols-6 py-3 border-t-2 border-b-2 bg-gray-50 text-md ">
-      <div>
-        <!-- Empty column for spacing -->
-      </div>
-        
-      <div class="font-light ps-2">
-        Label
+  <% if @component.circuits.empty?  %>
+    <% render 'circuits/empty_state', component: @component %>
+  <% else %>
+    <div class="pt-4 rounded-lg ">
+      <div class="grid grid-cols-6 py-3 border-t-2 border-b-2 bg-gray-50 text-md ">
+        <div>
+          <!-- Empty column for spacing -->
+        </div>
+          
+        <div class="font-light ps-2">
+          Label
+        </div>
+
+        <div class="font-light">
+          Wire
+        </div>
+
+        <div class="font-light">
+          Type
+        </div>
+
+        <div class="font-light">
+          Connectors
+        </div>
+
+        <div>
+          <!-- Empty column for spacing -->
+        </div>
       </div>
 
-      <div class="font-light">
-        Wire
-      </div>
+      <% circuits.each do |circuit| %>
 
-      <div class="font-light">
-        Type
-      </div>
-
-      <div class="font-light">
-        Connector
-      </div>
-
-      <div>
-        <!-- Empty column for spacing -->
-      </div>
+        <div data-dropdown-target="menu" data-id="circuitDropdown1">
+          <div class="grid grid-cols-6 bg-white border-b-2 " data-controller="">
+            <%= image_tag "circuit-diagram-example.png", width: 500, id:"circuit-image", class: "rounded-md p-3"%>
+            <div class="flex items-center ps-2">
+              <%= "Circuit ##{circuit.label}" %>
+            </div>
+            <div class="flex items-center">
+              <%= circuit.wire_name.titleize %>
+            </div>
+            <div class="flex items-center">
+              <%= circuit.kind.titleize %>
+            </div>
+            <div class="flex items-center">
+              <div class="">
+                <div class="flex items-center">
+                  <%= circuit.p1_connector.label %>
+                </div>
+                <div class="flex items-center">
+                  <%= circuit.p2_connector.label %>
+                </div>
+              </div>
+            </div>
+            <div class="flex items-center justify-center">
+              <svg xmlns="http://www.w3.org/2000/svg" height="16" width="16" viewBox="0 0 512 512"><!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352a144 144 0 1 0 0-288 144 144 0 1 0 0 288z"/></svg>
+            </div>
+          </div>
+        </div>
+      <% end %>
     </div>
-
-    <div data-dropdown-target="menu" data-id="circuitDropdown1">
-      <div class="grid grid-cols-6 bg-white border-b-2 " data-controller="">
-        <%= image_tag "circuit-diagram-example.png", width: 500, id:"circuit-image", class: "rounded-md p-3"%>
-        <div class="flex items-center ps-2">
-          Circuit #37
-        </div>
-        <div class="flex items-center">
-          16g Blk/Red
-        </div>
-        <div class="flex items-center">
-          Power
-        </div>
-        <div class="flex items-center">
-          CN6A
-        </div>
-        <div class="flex items-center justify-center">
-          <svg xmlns="http://www.w3.org/2000/svg" height="16" width="16" viewBox="0 0 512 512"><!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352a144 144 0 1 0 0-288 144 144 0 1 0 0 288z"/></svg>
-        </div>
-      </div>
-
-      <div data-dropdown-target="menu" data-id="circuitDropdown2  ">
-      <div class="grid grid-cols-6 bg-white">
-        <%= image_tag "circuit-diagram-example.png", width: 500, id:"circuit-image", class: "rounded-md p-3"%>
-        <div class="flex items-center">
-          Circuit #32
-        </div>
-        <div class="flex items-center">
-          16g Pnk/Gry
-        </div>
-        <div class="flex items-center">
-          Signal
-        </div>
-        <div class="flex items-center">
-          CN6A
-        </div>
-        <div class="flex items-center justify-center col-span-1">
-          <svg xmlns="http://www.w3.org/2000/svg" height="16" width="16" viewBox="0 0 512 512"><!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352a144 144 0 1 0 0-288 144 144 0 1 0 0 288z"/></svg>
-        </div>
-      </div>
-    </div>
-  </div>
+  <% end %>
 <% end %>

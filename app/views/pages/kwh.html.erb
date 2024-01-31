@@ -1,0 +1,44 @@
+<% @forms.each do |model, form_attributes| %>
+  <div class="p-4 my-4 bg-white rounded-lg shadow" data-controller="form-container" >
+    <div class="flex justify-between">
+      <div class=""> 
+        <h2 class="text-xl font-bold"><%= "#{model.to_s.titleize} Management"%> </h2>
+        <p><%= "#{form_attributes[:description]}"%></p>
+      </div>
+      <div class="flex items-center px-2 bg-blue-600 rounded-lg">
+        <%= link_to send(form_attributes[:path]), 
+            class: "px-2 cursor-pointer", 
+            data: { 
+              turbo_frame: form_attributes[:turbo_frame_id], 
+              action: "form-container#toggleForm",
+              form_id: form_attributes[:turbo_frame_id]
+            } do %>
+          <svg xmlns="http://www.w3.org/2000/svg" height="16" width="18" viewBox="0 0 448 512" fill="white"><!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M256 80c0-17.7-14.3-32-32-32s-32 14.3-32 32V224H48c-17.7 0-32 14.3-32 32s14.3 32 32 32H192V432c0 17.7 14.3 32 32 32s32-14.3 32-32V288H400c17.7 0 32-14.3 32-32s-14.3-32-32-32H256V80z"/></svg>
+        <% end %>
+        <span class="cursor-pointer">|</span>
+        <div class="" data-controller="dropdown">
+          <%= render "layouts/dropdown_options", button: "<svg data-dropdown-target='caret' class='hover:rotate-180' xmlns='http://www.w3.org/2000/svg' height='16' width='18' fill='white' viewBox='0 0 448 512'><!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d='M201.4 137.4c12.5-12.5 32.8-12.5 45.3 0l160 160c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L224 205.3 86.6 342.6c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3l160-160z'/></svg>" do %>
+            <div class="px-4 py-2 text-sm text-gray-700">
+              <%= link_to send("#{model}_batch_upload_path"), 
+                  class: "flex items-center", 
+                  data: { 
+                    turbo_frame: "boat_batch_upload_form", 
+                    action: "form-container#toggleForm dropdown#toggle",
+                    form_id: "#{model}_batch_upload_form"
+                  } do %>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512" height="14" width="14"><!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M64 0C28.7 0 0 28.7 0 64V448c0 35.3 28.7 64 64 64H320c35.3 0 64-28.7 64-64V160H256c-17.7 0-32-14.3-32-32V0H64zM256 0V128H384L256 0zM216 408c0 13.3-10.7 24-24 24s-24-10.7-24-24V305.9l-31 31c-9.4 9.4-24.6 9.4-33.9 0s-9.4-24.6 0-33.9l72-72c9.4-9.4 24.6-9.4 33.9 0l72 72c9.4 9.4 9.4 24.6 0 33.9s-24.6 9.4-33.9 0l-31-31V408z"/></svg>
+                <span>Batch Upload/Edit</span>
+              <% end %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+
+    <%= render "layouts/form_container", turbo_frame_id: form_attributes[:turbo_frame_id] %>
+
+    <%= render "layouts/form_container", turbo_frame_id: "#{model}_batch_upload_form" %>
+    
+    
+  </div>
+<% end %>

@@ -13,6 +13,11 @@ class CircuitsController < ApplicationController
   # GET /circuits/new
   def new
     @circuit = Circuit.new
+    @terminals = Terminal.all
+    @wiring_harnesses = WiringHarness.all
+    @wiring_harness_connectors = WiringHarnessConnector.all
+    @colors = %w(black blue brown green gray orange purple red white yellow)
+    @gauges =  %w(12g 14g 16g 18g 20g 21g 22g 24g)
   end
 
   # GET /circuits/1/edit

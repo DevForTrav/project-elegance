@@ -1,4 +1,5 @@
 class BoatsController < ApplicationController
+  include BatchActions
   before_action :set_boat, only: %i[ show edit update destroy ]
 
   # GET /boats
@@ -7,8 +8,7 @@ class BoatsController < ApplicationController
   end
 
   # GET /boats/1
-  def show
-  end
+  def show; end
 
   # GET /boats/new
   def new
@@ -16,8 +16,7 @@ class BoatsController < ApplicationController
   end
 
   # GET /boats/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /boats
   def create
@@ -43,6 +42,19 @@ class BoatsController < ApplicationController
   def destroy
     @boat.destroy
     redirect_to boats_url, notice: "Boat was successfully destroyed.", status: :see_other
+  end
+
+  def batch_upload; end
+
+  def batch_create
+    file = params[:boat_file]
+    csv_importer = CsvImporter.new(file)
+    data = csv_importer.import
+
+    data.each do |boat|
+      Boat.find_or_create_by(manufacturer: boat["Manufacturer"], year: boat["Year"], model: boat["Model"])
+    end
+    redirect_to boats_path
   end
 
   private

@@ -1,0 +1,32 @@
+<div id="<%= dom_id splice %>">
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Circuit:</strong>
+    <%= splice.circuit_id %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Terminal:</strong>
+    <%= splice.terminal_id %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Label:</strong>
+    <%= splice.label %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Parent splice:</strong>
+    <%= splice.parent_splice_id %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Length:</strong>
+    <%= splice.length %>
+  </p>
+
+  <% if action_name != "show" %>
+    <%= link_to "Show this splice", splice, class: "rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+    <%= link_to "Edit this splice", edit_splice_path(splice), class: "rounded-lg py-3 ml-2 px-5 bg-gray-100 inline-block font-medium" %>
+    <hr class="mt-6">
+  <% end %>
+</div>

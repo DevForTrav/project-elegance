@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_01_20_224005) do
+ActiveRecord::Schema[7.0].define(version: 2024_01_29_054036) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -47,7 +47,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_20_224005) do
     t.bigint "twisted_with_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "component_id", null: false
+    t.bigint "component_id"
     t.string "kind"
     t.string "primary_color"
     t.string "secondary_color"
@@ -81,6 +81,21 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_20_224005) do
     t.bigint "secondary_terminal_id"
     t.index ["secondary_terminal_id"], name: "index_connectors_on_secondary_terminal_id"
     t.index ["terminal_id"], name: "index_connectors_on_terminal_id"
+  end
+
+  create_table "splices", force: :cascade do |t|
+    t.bigint "circuit_id", null: false
+    t.bigint "terminal_id", null: false
+    t.string "label"
+    t.integer "length"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "component_id"
+    t.bigint "parent_splice_id"
+    t.index ["circuit_id"], name: "index_splices_on_circuit_id"
+    t.index ["component_id"], name: "index_splices_on_component_id"
+    t.index ["parent_splice_id"], name: "index_splices_on_parent_splice_id"
+    t.index ["terminal_id"], name: "index_splices_on_terminal_id"
   end
 
   create_table "terminals", force: :cascade do |t|
@@ -133,6 +148,10 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_20_224005) do
   add_foreign_key "components", "boats"
   add_foreign_key "connectors", "terminals"
   add_foreign_key "connectors", "terminals", column: "secondary_terminal_id"
+  add_foreign_key "splices", "circuits"
+  add_foreign_key "splices", "components"
+  add_foreign_key "splices", "splices", column: "parent_splice_id"
+  add_foreign_key "splices", "terminals"
   add_foreign_key "wiring_harness_connectors", "connectors"
   add_foreign_key "wiring_harness_connectors", "wiring_harnesses"
 end

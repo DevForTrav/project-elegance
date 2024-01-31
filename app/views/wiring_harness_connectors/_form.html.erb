@@ -1,37 +1,39 @@
-<%= form_with(model: wiring_harness_connector, class: "contents") do |form| %>
-  <% if wiring_harness_connector.errors.any? %>
-    <div id="error_explanation" class="px-3 py-2 mt-3 font-medium text-red-500 rounded-lg bg-red-50">
-      <h2><%= pluralize(wiring_harness_connector.errors.count, "error") %> prohibited this wiring_harness_connector from being saved:</h2>
+<%= turbo_frame_tag "new_wiring_harness_connector_form" do%>
+  <%= form_with(model: wiring_harness_connector, class: "contents") do |form| %>
+    <% if wiring_harness_connector.errors.any? %>
+      <div id="error_explanation" class="px-3 py-2 mt-3 font-medium text-red-500 rounded-lg bg-red-50">
+        <h2><%= pluralize(wiring_harness_connector.errors.count, "error") %> prohibited this wiring_harness_connector from being saved:</h2>
 
-      <ul>
-        <% wiring_harness_connector.errors.each do |error| %>
-          <li><%= error.full_message %></li>
-        <% end %>
-      </ul>
+        <ul>
+          <% wiring_harness_connector.errors.each do |error| %>
+            <li><%= error.full_message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div class="my-5">
+      <%= form.label :name %>
+      <%= form.text_field :label, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
+    </div>
+
+    <div class="my-5">
+      <%= form.label :populated_contacts %>
+      <%= form.number_field :populated_contacts, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
+    </div>
+
+    <div class="my-5">
+      <%= form.label :wiring_harness_id %>
+      <%= form.collection_select :wiring_harness_id, WiringHarness.all, :id, :name, { prompt: true },{ class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" }%>
+    </div>
+
+    <div class="my-5">
+      <%= form.label :connector_id %>
+      <%= form.collection_select :connector_id, Connector.all, :id, :name, { prompt: true },{ class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" }%>
+    </div>
+
+    <div class="inline">
+      <%= form.submit class: "rounded-lg py-3 px-5 bg-blue-600 text-white inline-block font-medium cursor-pointer" %>
     </div>
   <% end %>
-
-  <div class="my-5">
-    <%= form.label :name %>
-    <%= form.text_field :label, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
-  </div>
-
-  <div class="my-5">
-    <%= form.label :populated_contacts %>
-    <%= form.number_field :populated_contacts, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
-  </div>
-
-  <div class="my-5">
-    <%= form.label :wiring_harness_id %>
-    <%= form.collection_select :wiring_harness_id, WiringHarness.all, :id, :name, { prompt: true },{ class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" }%>
-  </div>
-
-  <div class="my-5">
-    <%= form.label :connector_id %>
-    <%= form.collection_select :connector_id, Connector.all, :id, :name, { prompt: true },{ class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" }%>
-  </div>
-
-  <div class="inline">
-    <%= form.submit class: "rounded-lg py-3 px-5 bg-blue-600 text-white inline-block font-medium cursor-pointer" %>
-  </div>
 <% end %>

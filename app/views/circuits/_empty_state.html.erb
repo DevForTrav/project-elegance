@@ -1,0 +1,9 @@
+<div class="flex p-4">
+  <p class="">There are currently no circuits associated with this component. Would you like to
+    <%= link_to "add some?", new_component_circuit_path(component), class: "underline decoration-blue-400 hover:bg-gray-100 rounded py-1", data: {turbo_frame: "new_circuit_form"} %>
+  </p>
+</div>
+<div class="p-2">
+  <%# TODO: Make Unique ID associated with Component ID %>
+  <%= turbo_frame_tag "new_circuit_form" %>
+</div>  

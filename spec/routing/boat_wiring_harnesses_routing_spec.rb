@@ -18,7 +18,6 @@ RSpec.describe BoatWiringHarnessesController, type: :routing do
       expect(get: "/boat_wiring_harnesses/1/edit").to route_to("boat_wiring_harnesses#edit", id: "1")
     end
 
-
     it "routes to #create" do
       expect(post: "/boat_wiring_harnesses").to route_to("boat_wiring_harnesses#create")
     end
