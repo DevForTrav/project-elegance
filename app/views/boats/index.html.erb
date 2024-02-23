@@ -5,10 +5,13 @@
 
   <div class="flex items-center justify-between pb-5">
     <h1 class="text-3xl font-bold">Boats</h1>
-    <%= link_to "New boat", new_boat_path, class: "rounded-lg py-3 px-5 bg-blue-600 text-white block font-medium" %>
+    <%= link_to "New boat", new_boat_path, class: "rounded-lg py-3 px-5 bg-blue-600 text-white block font-medium", data: { turbo_frame: :right_form_modal} %>
   </div>
 
   <div id="boats" class="grid grid-cols-3 gap-5">
-    <%= render @boats %>
+    <%# <%= render @boats %>
+    <% @boats.each do |boat| %>
+      <%= render partial: "boat_card", locals: { boat: boat } %>
+    <% end %>
   </div>
 </div>

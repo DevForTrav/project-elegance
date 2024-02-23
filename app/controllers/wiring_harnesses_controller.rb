@@ -22,7 +22,7 @@ class WiringHarnessesController < ApplicationController
   # POST /wiring_harnesses
   def create
     @wiring_harness = WiringHarness.new(wiring_harness_params)
-    respond_to do |format|  
+    respond_to do |format|
       if @wiring_harness.save
         format.turbo_stream do
           render turbo_stream: turbo_stream.replace("new_wiring_harness_form", partial: "wiring_harnesses/wiring_harness", locals: { wiring_harness: @wiring_harness })

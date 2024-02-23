@@ -1,0 +1,14 @@
+<turbo-stream action="update" target="form_connectors">
+  <template>
+    <%= form_with model: @circuit, class: "grid grid-cols-2 gap-4", local: false do |form| %>
+        <div class="my-5">
+          <%= form.label :p1_connector_id %>
+          <%= form.collection_select :p1_connector_id, @form_connectors, :id, :label, { prompt: true },{ class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" }%>
+        </div>
+        <div class="my-5">
+          <%= form.label :p2_connector_id %>
+          <%= form.collection_select :p2_connector_id, @form_connectors, :id, :label, { prompt: true },{ class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" }%>
+        </div>
+    <% end %>
+  </template>
+</turbo-stream>

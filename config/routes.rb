@@ -22,9 +22,18 @@ Rails.application.routes.draw do
   post '/components/batch_create', to: 'components#batch_create', as: 'component_batch_create'
   get '/circuits/batch_upload', to: 'circuits#batch_upload', as: 'circuit_batch_upload'
   post '/circuits/batch_create', to: 'circuits#batch_create', as: 'circuit_batch_create'
+  get '/splices/batch_upload', to: 'splices#batch_upload', as: 'splice_batch_upload'
+  post '/splices/batch_create', to: 'splices#batch_create', as: 'splice_batch_create'
+
+
+
 
   resources :boat_wiring_harnesses
-  resources :circuits
+
+  resources :circuits do
+    get :form_connectors, on: :collection
+  end
+  
   resources :wires
   resources :connector_terminals
   resources :terminals

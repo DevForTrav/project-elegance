@@ -1,3 +1,8 @@
-<div class="w-full mx-auto md:w-2/3">
-  <%= render "form", boat: @boat %>
-</div>
+<%= turbo_frame_tag :right_form_modal do %>
+  <%= render "layouts/right_form_modal" do %>
+    <div class="w-full mx-auto md:w-2/3">
+      <%= render "form", boat: @boat %>
+      <%= link_to "Back to boats", boats_path, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+    </div>
+  <% end %>
+<% end %>

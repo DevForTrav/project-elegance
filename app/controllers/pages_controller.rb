@@ -1,5 +1,5 @@
 class PagesController < ApplicationController
-  
+
   def kwh
     @forms = {
       boat: {
@@ -41,6 +41,11 @@ class PagesController < ApplicationController
         description: "Add circuits to the database.",
         path: "new_circuit_path",
         turbo_frame_id: "new_circuit_form"
+      },
+      splice: {
+        description: "Add splices to the database.",
+        path: "new_splice_path",
+        turbo_frame_id: "new_splice_form"
       }
     }
   end

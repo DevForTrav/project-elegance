@@ -1,7 +1,9 @@
 class Boat < ApplicationRecord
-  has_many :components
-  has_many :boat_wiring_harnesses
+  has_many :components, dependent: :destroy
+  has_many :boat_wiring_harnesses, dependent: :destroy
   has_many :wiring_harnesses, through: :boat_wiring_harnesses
+
+  has_one_attached :image
 
   def name
     "#{year} #{manufacturer} #{model}"

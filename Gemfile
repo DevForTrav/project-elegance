@@ -38,6 +38,10 @@ gem "redis", "~> 4.0"
 
 gem 'roo', '~> 2.7', '>= 2.7.1'
 
+gem 'aws-sdk-s3', '~> 1.143'
+
+
+
 # Use Kredis to get higher-level data types in Redis [https://github.com/rails/kredis]
 # gem "kredis"
 

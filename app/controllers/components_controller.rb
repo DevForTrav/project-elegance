@@ -27,6 +27,8 @@ class ComponentsController < ApplicationController
   # GET /components/new
   def new
     @component = Component.new
+    @boat = Boat.find(params[:boat_id]) if params[:boat_id].present?  
+    @category = params[:category].pluralize if params[:category].present?  
   end
 
   # GET /components/1/edit

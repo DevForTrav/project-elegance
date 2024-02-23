@@ -1,7 +1,13 @@
-<div id="<%= dom_id boat %>" class="p-4 bg-white border rounded-lg shadow-sm">
-  <%= link_to boat_path(boat) do %>
-    <div class="flex items-center justify-between pt-2" data-controller="dropdown">
-        <h2 class="py-2 text-xl font-bold"><%= boat.name %></h2>
+<div id="<%= dom_id boat %>" class="grid grid-cols-2 bg-white border rounded-lg shadow-sm">
+  <div class="flex items-center justify-center border-r-2 shadow-md">
+    <% if boat.image.attached? %>
+      <%= image_tag boat.image, width: 300, class: "p-2 rounded-lg bg-white" %>
+    <% end %>
+  </div>
+  <div class="p-4 bg-gradient-to-r to-gray-100 from-gray-50">
+    <div class="flex justify-between">
+      <h2 class="pt-2 text-xl font-bold"><%= boat.name %></h2>
+      <div class="justify-between pt-2" data-controller="dropdown">
         <div>
           <% if action_name == 'show'%>
             <%= render "layouts/dropdown_options", button: "<svg xmlns=\"http://www.w3.org/2000/svg\" height=\"16\" width=\"4\" viewBox=\"0 0 128 512\"><!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d=\"M64 360a56 56 0 1 0 0 112 56 56 0 1 0 0-112zm0-160a56 56 0 1 0 0 112 56 56 0 1 0 0-112zM120 96A56 56 0 1 0 8 96a56 56 0 1 0 112 0z\"/></svg>" do %>
@@ -11,9 +17,11 @@
             <% end %>
           <% end %>
         </div>
+      </div>
     </div>
-    <div class="rounded-md">
-      <%= image_tag "2022_supreme_s220.jpeg", width: 300, class: "p-2 rounded-lg" %>
+    <div class="flex">
+      <h3 class="text-lg">Wiring Harnesses:</h3>
+      <%= render "wiring_harness_list" %> 
     </div>
-  <% end %>
+  </div>
 </div>

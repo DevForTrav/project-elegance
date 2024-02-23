@@ -45,6 +45,12 @@ class WiringHarnessConnectorsController < ApplicationController
     redirect_to wiring_harness_connectors_url, notice: "Wiring harness connector was successfully destroyed.", status: :see_other
   end
 
+  def options
+    @wiring_harness_connectors = WiringHarnessConnector.where(wiring_harness_id: params[:wiring_harness_id])
+
+    render partial: "wiring_harness_connector_options", locals: { wiring_harness_connectors: @wiring_harness_connectors }
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_wiring_harness_connector

@@ -8,7 +8,9 @@ class BoatsController < ApplicationController
   end
 
   # GET /boats/1
-  def show; end
+  def show
+    @wiring_harnesses = @boat.wiring_harnesses
+  end
 
   # GET /boats/new
   def new
@@ -23,7 +25,17 @@ class BoatsController < ApplicationController
     @boat = Boat.new(boat_params)
 
     if @boat.save
-      redirect_to @boat, notice: "Boat was successfully created."
+      respond_to do |format|
+        format.turbo_stream {
+          render turbo_stream:
+            turbo_stream.replace(
+              'new_boat_form',
+              partial: 'boats/boat',
+              locals: { boat: @boat }
+            )
+        }
+        format.html { redirect_to @boat, notice: 'Boat was successfully created.' }
+      end
     else
       render :new, status: :unprocessable_entity
     end
@@ -65,6 +77,6 @@ class BoatsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def boat_params
-      params.require(:boat).permit(:year, :model, :manufacturer)
+      params.require(:boat).permit(:year, :model, :manufacturer, :image)
     end
 end

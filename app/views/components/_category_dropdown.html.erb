@@ -1,14 +1,18 @@
-<div class="p-5 mt-4 bg-white border rounded-lg shadow-sm" data-controller="dropdown" id="category-container">
-  <button class="flex justify-between w-full" type="button" data-dropdown-target="button" data-action="dropdown#toggle keydown.esc->dropdown#hide">
-    <span class="font-bold text-md " >
-      <%= category.titleize  %>
-    </span>
-    <svg data-dropdown-target="caret" class="hover:rotate-180" xmlns="http://www.w3.org/2000/svg" height="16" width="14" viewBox="0 0 448 512"><!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M201.4 137.4c12.5-12.5 32.8-12.5 45.3 0l160 160c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L224 205.3 86.6 342.6c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3l160-160z"/></svg>
-  </button>
-  <div
-    class="hidden mt-3 bg-white"
-    data-dropdown-target="menu"
-  >
-    <%= render "components/components_list", components: components  %>
+<% if components.present? %>
+  <div class="p-5 mt-4 bg-white border rounded-lg shadow-sm" data-controller="dropdown" id="category-container">
+    <button class="flex justify-between w-full" type="button" data-dropdown-target="button" data-action="dropdown#toggle keydown.esc->dropdown#hide">
+      <span class="font-bold text-md " >
+        <%= category.titleize  %>
+      </span>
+      <svg data-dropdown-target="caret" class="hover:rotate-180" xmlns="http://www.w3.org/2000/svg" height="16" width="14" viewBox="0 0 448 512"><path d="M201.4 137.4c12.5-12.5 32.8-12.5 45.3 0l160 160c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L224 205.3 86.6 342.6c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3l160-160z"/></svg>
+    </button>
+    <div
+      class="hidden mt-3 bg-white"
+      data-dropdown-target="menu"
+    >
+      <%= render "components/components_list", components: components, category: category %>
+    </div>
   </div>
-</div>
+<% else %>
+  <%= render "components/empty_state", boat: @boat %>
+<% end %>

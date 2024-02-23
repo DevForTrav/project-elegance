@@ -50,6 +50,14 @@ class CircuitsController < ApplicationController
     redirect_to circuits_url, notice: "Circuit was successfully destroyed.", status: :see_other
   end
 
+  def form_connectors
+    @form_connectors = WiringHarnessConnector.where(wiring_harness_id: params[:wiring_harness_id])
+
+    respond_to do |format|
+      format.turbo_stream
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_circuit
@@ -58,6 +66,18 @@ class CircuitsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def circuit_params
-      params.require(:circuit).permit(:label, :gauge, :length, :wiring_harness_id, :p1_terminal_id, :p2_terminal_id, :p1_connector_id, :p2_connector_id, :wire_id)
+      params.require(:circuit).permit(
+        :label,
+        :gauge,
+        :length,
+        :wiring_harness_id,
+        :p1_terminal_id,
+        :p2_terminal_id,
+        :p1_connector_id,
+        :p2_connector_id,
+        :wire_id,
+        :primary_color,
+        :secondary_color
+      )
     end
 end

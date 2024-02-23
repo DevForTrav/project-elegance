@@ -8,7 +8,7 @@ class Component < ApplicationRecord
   
 
   validates :label, uniqueness: { scope: :boat_id }
-  validate :circuit_component_id_empty_if_splices_present
+  # validate :circuit_component_id_empty_if_splices_present
   
   scope :for_boat, ->(boat_id) { where(boat_id: boat_id) }
 
@@ -16,10 +16,15 @@ class Component < ApplicationRecord
     "#{boat.year} #{boat.manufacturer} #{boat.model}"
   end
 
+  def sorted_circuits_and_splices(sort_param = :label)  
+    circuits_and_splices = circuits + splices
+    circuits_and_splices.sort_by(&sort_param)
+  end
+
   private
 
   def circuit_component_id_empty_if_splices_present
-    if splices.present?
+    if splices.empty?
       circuits.each do |circuit|
         errors.add(:base, 'Circuit component_id must be empty if component has splices') if circuit.component_id.present?
       end

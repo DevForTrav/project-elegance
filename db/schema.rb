@@ -10,13 +10,41 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_01_29_054036) do
+ActiveRecord::Schema[7.0].define(version: 2024_02_09_184349) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   # Custom types defined in this database.
   # Note that some types may not work with other database engines. Be careful if changing database.
   create_enum "terminal_type", ["male", "female"]
+
+  create_table "active_storage_attachments", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "record_type", null: false
+    t.bigint "record_id", null: false
+    t.bigint "blob_id", null: false
+    t.datetime "created_at", null: false
+    t.index ["blob_id"], name: "index_active_storage_attachments_on_blob_id"
+    t.index ["record_type", "record_id", "name", "blob_id"], name: "index_active_storage_attachments_uniqueness", unique: true
+  end
+
+  create_table "active_storage_blobs", force: :cascade do |t|
+    t.string "key", null: false
+    t.string "filename", null: false
+    t.string "content_type"
+    t.text "metadata"
+    t.string "service_name", null: false
+    t.bigint "byte_size", null: false
+    t.string "checksum"
+    t.datetime "created_at", null: false
+    t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
+  end
+
+  create_table "active_storage_variant_records", force: :cascade do |t|
+    t.bigint "blob_id", null: false
+    t.string "variation_digest", null: false
+    t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
+  end
 
   create_table "boat_wiring_harnesses", force: :cascade do |t|
     t.bigint "boat_id", null: false
@@ -51,6 +79,9 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_29_054036) do
     t.string "kind"
     t.string "primary_color"
     t.string "secondary_color"
+    t.string "circuit_position"
+    t.string "p1_position"
+    t.string "p2_position"
     t.index ["component_id"], name: "index_circuits_on_component_id"
     t.index ["p1_connector_id"], name: "index_circuits_on_p1_connector_id"
     t.index ["p1_terminal_id"], name: "index_circuits_on_p1_terminal_id"
@@ -85,17 +116,20 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_29_054036) do
 
   create_table "splices", force: :cascade do |t|
     t.bigint "circuit_id", null: false
-    t.bigint "terminal_id", null: false
+    t.bigint "terminal_id"
     t.string "label"
     t.integer "length"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "component_id"
-    t.bigint "parent_splice_id"
+    t.bigint "child_splice_id"
+    t.string "circuit_position"
+    t.bigint "wiring_harness_connector_id"
+    t.index ["child_splice_id"], name: "index_splices_on_child_splice_id"
     t.index ["circuit_id"], name: "index_splices_on_circuit_id"
     t.index ["component_id"], name: "index_splices_on_component_id"
-    t.index ["parent_splice_id"], name: "index_splices_on_parent_splice_id"
     t.index ["terminal_id"], name: "index_splices_on_terminal_id"
+    t.index ["wiring_harness_connector_id"], name: "index_splices_on_wiring_harness_connector_id"
   end
 
   create_table "terminals", force: :cascade do |t|
@@ -136,6 +170,8 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_29_054036) do
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "boat_wiring_harnesses", "boats"
   add_foreign_key "boat_wiring_harnesses", "wiring_harnesses"
   add_foreign_key "circuits", "circuits", column: "twisted_with_id"
@@ -150,8 +186,9 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_29_054036) do
   add_foreign_key "connectors", "terminals", column: "secondary_terminal_id"
   add_foreign_key "splices", "circuits"
   add_foreign_key "splices", "components"
-  add_foreign_key "splices", "splices", column: "parent_splice_id"
+  add_foreign_key "splices", "splices", column: "child_splice_id"
   add_foreign_key "splices", "terminals"
+  add_foreign_key "splices", "wiring_harness_connectors"
   add_foreign_key "wiring_harness_connectors", "connectors"
   add_foreign_key "wiring_harness_connectors", "wiring_harnesses"
 end
