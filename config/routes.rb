@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :boat_components
+  resources :boat_circuits
   resources :splices
 
   root "components#index"
