@@ -1,7 +1,11 @@
-<div class="mx-auto md:w-2/3 w-full">
-  <h1 class="font-bold text-4xl">New boat wiring harness</h1>
+<%= turbo_frame_tag :right_form_modal do %>
+  <%= render "layouts/right_form_modal" do %>
+    <div class="w-full mx-auto md:w-2/3">
+      <h1 class="text-xl font-bold">New boat wiring harness</h1>
 
-  <%= render "form", boat_wiring_harness: @boat_wiring_harness %>
+      <%= render "form", boat_wiring_harness: @boat_wiring_harness %>
 
-  <%= link_to "Back to boat wiring harnesses", boat_wiring_harnesses_path, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
-</div>
+      <%= link_to "Back to boat wiring harnesses", boat_wiring_harnesses_path, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+    </div>
+  <% end %>
+<% end %>

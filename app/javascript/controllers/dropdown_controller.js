@@ -27,4 +27,11 @@ export default class extends Controller {
       leave(this.menuTarget)
     }
   }
+
+  outsideClick() {
+    const buttonClicked = this.buttonTarget.contains(event.target)
+    if (!buttonClicked) {
+      leave(this.menuTarget)
+    }
+  }
 }
