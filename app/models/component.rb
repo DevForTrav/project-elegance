@@ -1,7 +1,8 @@
 class Component < ApplicationRecord
-  belongs_to :boat
+  belongs_to :wiring_harness
+  has_many :boats, through: :wiring_harnesses
+
   has_many :circuits
-  has_many :wiring_harnesses, through: :circuits
   has_many :splices
 
   before_save { self.label = label.downcase }

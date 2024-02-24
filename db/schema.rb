@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_02_24_222909) do
+ActiveRecord::Schema[7.0].define(version: 2024_02_24_233811) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -111,12 +111,12 @@ ActiveRecord::Schema[7.0].define(version: 2024_02_24_222909) do
 
   create_table "components", force: :cascade do |t|
     t.string "label"
-    t.bigint "boat_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "category"
     t.string "description"
-    t.index ["boat_id"], name: "index_components_on_boat_id"
+    t.bigint "wiring_harness_id"
+    t.index ["wiring_harness_id"], name: "index_components_on_wiring_harness_id"
   end
 
   create_table "connectors", force: :cascade do |t|
@@ -203,7 +203,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_02_24_222909) do
   add_foreign_key "circuits", "wiring_harness_connectors", column: "p1_connector_id"
   add_foreign_key "circuits", "wiring_harness_connectors", column: "p2_connector_id"
   add_foreign_key "circuits", "wiring_harnesses"
-  add_foreign_key "components", "boats"
+  add_foreign_key "components", "wiring_harnesses"
   add_foreign_key "connectors", "terminals"
   add_foreign_key "connectors", "terminals", column: "secondary_terminal_id"
   add_foreign_key "splices", "circuits"
