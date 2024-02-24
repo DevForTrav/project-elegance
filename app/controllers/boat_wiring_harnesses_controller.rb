@@ -12,7 +12,12 @@ class BoatWiringHarnessesController < ApplicationController
 
   # GET /boat_wiring_harnesses/new
   def new
-    @boat_wiring_harness = BoatWiringHarness.new
+    if params[:boat_id].present?
+      @boat = Boat.find_by(id: params[:boat_id])
+      @boat_wiring_harness = @boat.boat_wiring_harnesses.build
+    else
+      @boat_wiring_harness = BoatWiringHarness.new
+    end
   end
 
   # GET /boat_wiring_harnesses/1/edit
@@ -21,10 +26,20 @@ class BoatWiringHarnessesController < ApplicationController
 
   # POST /boat_wiring_harnesses
   def create
-    @boat_wiring_harness = BoatWiringHarness.new(boat_wiring_harness_params)
+    if params[:boat_id].present?
+      @boat = Boat.find_by(id: params[:boat_id])
+      @boat_wiring_harness = @boat.boat_wiring_harnesses.build(boat_wiring_harness_params)
+    else
+      @boat_wiring_harness = BoatWiringHarness.new(boat_wiring_harness_params)
+    end
 
+    @wiring_harness = @boat_wiring_harness.wiring_harness
     if @boat_wiring_harness.save
-      redirect_to @boat_wiring_harness, notice: "Boat wiring harness was successfully created."
+      respond_to do |format|
+        format.html { redirect_to @boat, notice: "Boat wiring harness was successfully created." }
+        format.turbo_stream
+
+      end
     else
       render :new, status: :unprocessable_entity
     end

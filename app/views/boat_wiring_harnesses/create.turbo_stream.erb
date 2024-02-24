@@ -1,0 +1,12 @@
+<%= turbo_stream.replace("right_form_modal") do %>
+  <%= turbo_frame_tag :right_form_modal %>
+<% end %>
+
+
+
+<%= turbo_stream.append("wiring-harnesses-list") do %>
+  <%= link_to wiring_harness_path(@wiring_harness), class: "rounded-lg text-white px-2 bg-blue-300 mr-2" do %>
+    <%= @wiring_harness.name.titleize %>
+  <% end %>
+<% end %>
+
