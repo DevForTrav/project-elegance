@@ -1,12 +1,11 @@
 class Component < ApplicationRecord
   belongs_to :wiring_harness
-  has_many :boats, through: :wiring_harnesses
+  has_many :boats, through: :wiring_harness
 
   has_many :circuits
   has_many :splices
 
   before_save { self.label = label.downcase }
-  
 
   validates :label, uniqueness: { scope: :boat_id }
   # validate :circuit_component_id_empty_if_splices_present
