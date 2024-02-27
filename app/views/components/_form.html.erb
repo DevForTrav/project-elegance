@@ -16,21 +16,16 @@
         <%= form.text_field :label, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
       </div>
       
-      <div class="grid grid-cols-3">
-        
-        <div class="col-span-2 pe-4">
-          <% if !defined?(@boat)   %>
-            <%= form.label :boat_id %>
-            <%= form.collection_select :boat_id, Boat.all, :id, :name, { prompt: true },{ class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" }%>
-          <% end %>
-        </div>
+      <div class="my-5">
+        <%= form.label :wiring_harness_id %>
+        <%= form.collection_select :wiring_harness_id, WiringHarness.all, :id, :name, { prompt: true },{ class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" }%>
+      </div>
 
-        <div class="col-span-1">
-          <% if !defined?(@category) %>
-            <%= form.label :category %>
-            <%= form.collection_select :category, ["Speakers", "Lights", "Options", "Pumps", "Engine", "CAN Devices"], :itself, :itself, { prompt: true }, {class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full"} %>
-          <% end %>
-        </div>
+      <div class="">
+        <% if !defined?(@category) %>
+          <%= form.label :category %>
+          <%= form.collection_select :category, ["Speakers", "Lights", "Options", "Pumps", "Engine", "CAN Devices"], :itself, :itself, { prompt: true }, {class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full"} %>
+        <% end %>
       </div>
       
       <div class="my-5">

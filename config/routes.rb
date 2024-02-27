@@ -43,6 +43,7 @@ Rails.application.routes.draw do
   resources :connectors
   resources :splices
   resources :wiring_harnesses do
+    resources :components
     resources :circuits
     resources :connectors
   end
