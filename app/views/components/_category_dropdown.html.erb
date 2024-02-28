@@ -10,7 +10,7 @@
       class="hidden mt-3 bg-white"
       data-dropdown-target="menu"
     >
-      <%= render "components/components_list", components: components, category: category %>
+      <%= render "components/components_list", { components: components, category: category, boat: @boat} %>
     </div>
   </div>
 <% else %>

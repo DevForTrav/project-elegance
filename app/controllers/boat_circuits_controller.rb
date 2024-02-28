@@ -12,7 +12,13 @@ class BoatCircuitsController < ApplicationController
 
   # GET /boat_circuits/new
   def new
-    @boat_circuit = BoatCircuit.new
+    if params[:boat_id] && params[:circuit_id]
+      @boat = Boat.find(params[:boat_id]) 
+      @circuit = Circuit.find(params[:circuit_id])
+      @boat_circuit = @boat.boat_circuits.build(circuit_id: @circuit.id)
+    else
+      @boat_circuit = BoatCircuit.new
+    end
   end
 
   # GET /boat_circuits/1/edit
@@ -21,7 +27,15 @@ class BoatCircuitsController < ApplicationController
 
   # POST /boat_circuits
   def create
-    @boat_circuit = BoatCircuit.new(boat_circuit_params)
+    debugger
+    if params[:boat_id] && params[:circuit_id]
+      @boat = Boat.find(params[:boat_id])
+      @circuit = Circuit.find(params[:circuit_id])
+      debugger
+      @boat_circuit = @boat.boat_circuits.build(circuit_id: @circuit.id)
+    else
+      @boat_circuit = BoatCircuit.new(boat_circuit_params)
+    end
 
     if @boat_circuit.save
       redirect_to @boat_circuit, notice: "Boat circuit was successfully created."
@@ -53,6 +67,6 @@ class BoatCircuitsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def boat_circuit_params
-      params.require(:boat_circuit).permit(:boat_id, :circuit_id)
+      params.require(:boat_circuit).permit(:boat_id, :circuit_id, :boat_circuit_layout)
     end
 end

@@ -5,7 +5,7 @@ class Circuit < ApplicationRecord
   belongs_to :p2_terminal, class_name: "Terminal"
   belongs_to :p1_connector, class_name: "WiringHarnessConnector"
   belongs_to :p2_connector, class_name: "WiringHarnessConnector"
-  belongs_to :circuits
+
   has_many :splices
 
 

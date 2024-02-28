@@ -6,13 +6,12 @@
 
     <%= render @boat %>
     
-
     <div class="pt-10">
       <% if @boat.categorized_components.present? %>
         <h1 class="text-2xl font-bold">Components</h1>
 
         <% @boat.categorized_components.each do |category, components| %>
-            <%= render "components/category_dropdown", { category: category, components: components }%>
+            <%= render "components/category_dropdown", { category: category, components: components } %>
         <% end %>
       <% else %> 
         <%= render "components/empty_state", boat: @boat %>

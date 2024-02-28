@@ -13,10 +13,15 @@ class ComponentsController < ApplicationController
     end
     @components = categorize_components
 
+    if params[:boat_id]
+      @boat = Boat.find(params[:boat_id])
+    end
+
   end
 
   # GET /components/1
   def show
+    @boat = Boat.find(params[:boat_id])
     respond_to do |format|
       format.html
       format.json { render json: @component }

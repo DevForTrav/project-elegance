@@ -12,7 +12,13 @@ class BoatComponentsController < ApplicationController
 
   # GET /boat_components/new
   def new
-    @boat_component = BoatComponent.new
+    if params[:boat_id] && params[:component_id]
+      @boat = Boat.find(params[:boat_id]) if params[:boat_id]
+      @component = Component.find(params[:component_id]) if params[:component_id]
+      @boat_component = @boat.boat_components.build(component_id: @component.id)
+    else
+      @boat_component = BoatComponent.new
+    end
   end
 
   # GET /boat_components/1/edit
@@ -21,7 +27,13 @@ class BoatComponentsController < ApplicationController
 
   # POST /boat_components
   def create
-    @boat_component = BoatComponent.new(boat_component_params)
+    if params[:boat_id] && params[:component_id]
+      @boat = Boat.find(params[:boat_id]) if params[:boat_id]
+      @component = Component.find(params[:component_id]) if params[:component_id]
+      @boat_component = @boat.boat_components.build(component_id: @component.id)
+    else
+      @boat_component = BoatComponent.new(boat_component_params)
+    end
 
     if @boat_component.save
       redirect_to @boat_component, notice: "Boat component was successfully created."
