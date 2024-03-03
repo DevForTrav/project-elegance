@@ -7,7 +7,7 @@
   <h1 class="text-4xl font-bold">Components</h1>
   <%= link_to "New component", new_component_path, class: "rounded-lg py-3 px-5 bg-blue-600 text-white block font-medium", data: { turbo_frame: :right_form_modal} %>
 </div>
-<div class="p-4 m-1 rounded-lg bg-neutral-200">
+<div class="p-4 m-1 rounded-lg">
   <% @components.each do |category, components| %>
     <%= render "components/category_dropdown", category: category,  components: components %>
   <% end %>

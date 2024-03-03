@@ -10,69 +10,64 @@
         </ul>
       </div>
     <% end %>
-    <div class="grid grid-cols-3 gap-4 ">
-      <div class="my-5">
-        <%= form.label :label %>
-        <%= form.text_field :label, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
-      </div>
 
-      <div class="my-5">
-        <%= form.label :length %>
-        <%= form.number_field :length, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
-      </div>
-
-      <div class="my-5">
-        <%= form.label :gauge %>
-        <%= form.collection_select :gauge, @gauges, :itself, :itself, { prompt: true },{ class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" }%>
-      </div>
-
-      <div class="my-5" >
-        <%= form.label :wiring_harness_id %>
-        <%= form.collection_select :wiring_harness_id, @wiring_harnesses, :id, :name, { prompt: true }, { class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full",
-          data: {
-            controller: "select-refresh", 
-            turbo_frame: "form-connectors-frame",
-            action: "change->select-refresh#refresh",
-            select_refresh_target: "select"
-          }
-        }%>
-      </div>
-
-      <div class="my-5 ">
-        <%= form.label :primary_color %>
-        <%= form.collection_select :primary_color, @colors, :itself, :itself, { prompt: true },{ class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" }%>
-      </div>
-
-      <div class="my-5 ">
-        <%= form.label :secondary_color %>
-        <%= form.collection_select :secondary_color, @colors, :itself, :itself, { prompt: true },{ class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" }%>
-      </div>
+    <div class="my-5">
+      <%= form.label :label %>
+      <%= form.text_field :label, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
     </div>
 
-    <div class="grid grid-cols-2 gap-4 ">
-      <div class="my-5">
-        <%= form.label :p1_terminal_id %>
-        <%= form.collection_select :p1_terminal_id, @terminals, :id, :name, { prompt: true }, { class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" }%>
-      </div>
+    <div class="my-5">
+      <%= form.label :length %>
+      <%= form.number_field :length, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
+    </div>
 
-      <div class="my-5">
-        <%= form.label :p2_terminal_id %>
-        <%= form.collection_select :p2_terminal_id, @terminals, :id, :name, { prompt: true },{ class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" }%>
-      </div>
+    <div class="my-5">
+      <%= form.label :gauge %>
+      <%= form.collection_select :gauge, @gauges, :itself, :itself, { prompt: true },{ class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" }%>
+    </div>
+
+    <div class="my-5" >
+      <%= form.label :wiring_harness_id %>
+      <%= form.collection_select :wiring_harness_id, @wiring_harnesses, :id, :name, { prompt: true }, { class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full",
+        data: {
+          controller: "select-refresh", 
+          turbo_frame: "form-connectors-frame",
+          action: "change->select-refresh#refresh",
+          select_refresh_target: "select"
+        }
+      }%>
+    </div>
+
+    <div class="my-5 ">
+      <%= form.label :primary_color %>
+      <%= form.collection_select :primary_color, @colors, :itself, :itself, { prompt: true },{ class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" }%>
+    </div>
+
+    <div class="my-5 ">
+      <%= form.label :secondary_color %>
+      <%= form.collection_select :secondary_color, @colors, :itself, :itself, { prompt: true },{ class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" }%>
+    </div>
+
+    <div class="my-5">
+      <%= form.label :p1_terminal_id %>
+      <%= form.collection_select :p1_terminal_id, @terminals, :id, :name, { prompt: true }, { class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" }%>
+    </div>
+
+    <div class="my-5">
+      <%= form.label :p2_terminal_id %>
+      <%= form.collection_select :p2_terminal_id, @terminals, :id, :name, { prompt: true },{ class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" }%>
     </div>
       
       <div id="form-connectors-frame" >
         <%= turbo_frame_tag "form_connectors" do %>
-          <div class="grid grid-cols-2 gap-4">
-            <div class="my-5 ">
-              <%= form.label :p1_connector_id %>
-              <%= form.collection_select :p1_connector_id, @wiring_harness_connectors, :id, :label, { prompt: true },{ class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" }%>
-            </div>
+          <div class="my-5 ">
+            <%= form.label :p1_connector_id %>
+            <%= form.collection_select :p1_connector_id, @wiring_harness_connectors, :id, :label, { prompt: true },{ class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" }%>
+          </div>
 
-            <div class="my-5">
-              <%= form.label :p2_connector_id %>
-              <%= form.collection_select :p2_connector_id, @wiring_harness_connectors, :id, :label, { prompt: true },{ class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" }%>
-            </div>
+          <div class="my-5">
+            <%= form.label :p2_connector_id %>
+            <%= form.collection_select :p2_connector_id, @wiring_harness_connectors, :id, :label, { prompt: true },{ class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" }%>
           </div>
         <% end %>
       </div>

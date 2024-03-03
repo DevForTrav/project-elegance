@@ -1,7 +1,4 @@
 Rails.application.routes.draw do
-  resources :boat_components
-  resources :boat_circuits
-  resources :splices
 
   root "components#index"
 
@@ -27,9 +24,6 @@ Rails.application.routes.draw do
   get '/splices/batch_upload', to: 'splices#batch_upload', as: 'splice_batch_upload'
   post '/splices/batch_create', to: 'splices#batch_create', as: 'splice_batch_create'
 
-
-
-
   resources :boat_wiring_harnesses
 
   resources :circuits do
@@ -54,9 +48,13 @@ Rails.application.routes.draw do
   end
 
   resources :boats do
-    resources :components
+    resources :boat_components
+    resources :boat_circuits
     resources :boat_wiring_harnesses
   end
+
+  
+  resources :splices
 
 
 

@@ -2,13 +2,17 @@
   <div class="flex justify-between">
     <div class="">
       <h2 class="text-2xl font-bold"><%= @component.wiring_harness.name.titleize %></h2>
-      <h1 class="text-xl font-medium"><%= @component.label %></h1>
+      <h3 class="text-xl font-medium"><%= @component.label %></h3>
     </div>
     <div class="">
       <%= link_to "Back", :back, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
     </div>
   </div>
-  <%= image_tag("boat_layout.jpeg", width: 500, class: "p-4") %>
+  <% if !@component.boat_component(@boat&.id).nil? %>
+    <%= image_tag(@component.boat_component(@boat.id).boat_component_layout, width: 500, class: "p-4") %>
+  <% else %>
+    <%= image_tag("boat_layout.png", width: 400, class: "p-4") %>
+  <% end %>
 </div>
 <div class="pb-4 my-4 bg-white border rounded-lg ">
   <div class="pt-10">
@@ -65,17 +69,15 @@
                       </div>
                     </div>
                   <% elsif @boat.present? && !defined?(@boat.boat_circuit(@circuit.id)) %>
-                    <%= link_to new_boat_circuit_path(circuit_id: circuit.id, boat_id: @boat.id), data: { turbo_frame: :right_form_modal } do %>
+                    <%= link_to new_boat_boat_circuit_path(circuit_id: circuit.id, boat_id: @boat.id), data: { turbo_frame: :right_form_modal } do %>
                       <div class="relative col-span-1">
                         <%= image_tag "boat_layout.png", class: "rounded-md w-full pe-2", data: { action: "mouseovr->image-handler#expand" , image_handler_target: "image"}%>
                       </div>      
                     <% end %>
                   <% else %>
-                    <%= link_to new_boat_circuit_path, data: { turbo_frame: :right_form_modal } do %>
-                      <div class="relative col-span-1">
-                        <%= image_tag "boat_layout.png", class: "rounded-md w-full pe-2", data: { action: "mouseovr->image-handler#expand" , image_handler_target: "image"}%>
-                      </div>      
-                    <% end %>
+                    <div class="relative col-span-1">
+                      <%= image_tag "boat_layout.png", class: "rounded-md w-full pe-2", data: { action: "mouseovr->image-handler#expand" , image_handler_target: "image"}%>
+                    </div>      
                   <% end %>
                   <div class="flex items-center ps-2">
                     <%= "Circuit #{circuit.label}" %>
@@ -88,9 +90,11 @@
                   </div>
                   <div class="flex items-center">
                     <div class="">
-                      <div class="flex items-center">
-                        <%= circuit.p1_connector.label %>
-                      </div>
+                      <%= link_to wiring_harness_connector_path(circuit.p1_connector.id), data: {turbo_frame: "_top"} do %>
+                        <div class="flex items-center p-1 bg-blue-400 text-white rounded-lg">
+                          <%= circuit.p1_connector.label %>
+                        </div>
+                      <% end %>
                       <div class="flex items-center">
                         <%= circuit.model_name.name == "Circuit" ? circuit.p2_connector.label : circuit.wiring_harness_connector %>
                       </div>

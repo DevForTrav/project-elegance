@@ -27,11 +27,9 @@ class BoatCircuitsController < ApplicationController
 
   # POST /boat_circuits
   def create
-    debugger
     if params[:boat_id] && params[:circuit_id]
       @boat = Boat.find(params[:boat_id])
       @circuit = Circuit.find(params[:circuit_id])
-      debugger
       @boat_circuit = @boat.boat_circuits.build(circuit_id: @circuit.id)
     else
       @boat_circuit = BoatCircuit.new(boat_circuit_params)
