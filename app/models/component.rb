@@ -8,10 +8,10 @@ class Component < ApplicationRecord
 
   before_save { self.label = label.downcase }
 
-  validates :label, uniqueness: { scope: :boat_id }
+  # validates :label, uniqueness: { scope: :boat_id }
   # validate :circuit_component_id_empty_if_splices_present
 
-  scope :for_boat, ->(boat_id) { where(boat_id: boat_id) }
+  # scope :for_boat, ->(boat_id) { where(boat_id: boat_id) }
 
   def boat_name
     "#{boat.year} #{boat.manufacturer} #{boat.model}"

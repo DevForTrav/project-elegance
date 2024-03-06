@@ -1,22 +1,16 @@
 class ComponentsController < ApplicationController
   before_action :set_component, only: %i[show edit update destroy]
-  before_action :set_boat_details, only: %i[index]
+  # before_action :set_boat_details, only: %i[index]
 
   # GET /components
   def index
     @boats = Boat.all
-    @manufacturers = @boats.all
-    @models = @manufacturer.present? ? @boats.where(manufacturer: @manufacturer).pluck(:id, :model) : @boats.pluck(:id, :model) 
-    @years =  @model.present? ? @boats.where(manufacturer: @manufacturer, model: @model).pluck(:id, :year) : @boats.pluck(:id, :year)
-    if @model.present? && @year.present? && @manufacturer.present?
-      @boat = @boats.find_by(model: @model, manufacturer: @manufacturer, year: @year)
-    end
-    @components = categorize_components
 
     if params[:boat_id]
       @boat = Boat.find(params[:boat_id])
     end
-
+    
+    @components = categorize_components
   end
 
   # GET /components/1
@@ -44,6 +38,8 @@ class ComponentsController < ApplicationController
     end
 
     @category = params[:category].pluralize if params[:category].present?
+
+
   end
 
   # GET /components/1/edit
@@ -88,8 +84,8 @@ class ComponentsController < ApplicationController
   private
 
   def categorize_components
-    if @boat
-      Component.where(boat_id: @boat.id).group_by(&:category)
+    if params[:boat_id].present?
+      @boat.components.group_by(&:category)
     else
       Component.all.group_by(&:category)
     end

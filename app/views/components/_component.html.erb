@@ -7,11 +7,12 @@
     <div class="">
       <%= link_to "Back", :back, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
     </div>
-  </div>
-  <% if !@component.boat_component(@boat&.id).nil? %>
-    <%= image_tag(@component.boat_component(@boat.id).boat_component_layout, width: 500, class: "p-4") %>
+  </div> 
+
+  <% if @component.boat_component(@boat.id).boat_component_layout.attached? %>
+    <%= image_tag @component.boat_component(@boat.id).boat_component_layout, width: 500, class: "p-4" %>
   <% else %>
-    <%= image_tag("boat_layout.png", width: 400, class: "p-4") %>
+    <%= image_tag("boat_layout.png", width: 500, class: "p-4") %>
   <% end %>
 </div>
 <div class="pb-4 my-4 bg-white border rounded-lg ">
@@ -89,16 +90,16 @@
                     <%= circuit.kind %>
                   </div>
                   <div class="flex items-center">
-                    <div class="">
-                      <%= link_to wiring_harness_connector_path(circuit.p1_connector.id), data: {turbo_frame: "_top"} do %>
-                        <div class="flex items-center p-1 bg-blue-400 text-white rounded-lg">
-                          <%= circuit.p1_connector.label %>
-                        </div>
-                      <% end %>
-                      <div class="flex items-center">
+                    <%= link_to wiring_harness_connector_path(circuit.p1_connector.id), data: {turbo_frame: "_top"} do %>
+                      <div class="p-1 text-white bg-blue-400 rounded-lg">
+                        <%= circuit.p1_connector.label %>
+                      </div>
+                    <% end %>
+                    <%= link_to wiring_harness_connector_path(circuit.p1_connector.id), data: {turbo_frame: "_top"} do %>
+                      <div class="p-1 text-white bg-blue-400 rounded-lg ms-2 ">
                         <%= circuit.model_name.name == "Circuit" ? circuit.p2_connector.label : circuit.wiring_harness_connector %>
                       </div>
-                    </div>
+                    <% end %>
                   </div>
                   <div class="flex items-center justify-center">
                     <% if  circuit.model_name.name == 'Circuit'%>

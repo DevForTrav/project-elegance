@@ -57,7 +57,7 @@
             </div>
           <% elsif boat.present? && !component.boat_component(@boat.id).present? %>
             <%= link_to new_boat_boat_component_path(component_id: component.id, boat_id: @boat.id), data: { turbo_frame: :right_form_modal } do %>
-              <div class="relative col-span-1 hover:bg-gray-200 rounded-md ms-2">
+              <div class="relative col-span-1 rounded-md hover:bg-gray-200 ms-2">
                 <%= image_tag "boat_layout.png", class: "rounded-md w-full pe-2", data: { action: "mouseovr->image-handler#expand" , image_handler_target: "image"}%>
               </div>      
             <% end %>
