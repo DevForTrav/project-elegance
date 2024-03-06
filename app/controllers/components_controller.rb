@@ -1,22 +1,21 @@
 class ComponentsController < ApplicationController
   before_action :set_component, only: %i[show edit update destroy]
-  before_action :set_boat_details, only: %i[index]
+  # before_action :set_boat_details, only: %i[index]
 
   # GET /components
   def index
     @boats = Boat.all
-    @manufacturers = @boats.all
-    @models = @manufacturer.present? ? @boats.where(manufacturer: @manufacturer).pluck(:id, :model) : @boats.pluck(:id, :model) 
-    @years =  @model.present? ? @boats.where(manufacturer: @manufacturer, model: @model).pluck(:id, :year) : @boats.pluck(:id, :year)
-    if @model.present? && @year.present? && @manufacturer.present?
-      @boat = @boats.find_by(model: @model, manufacturer: @manufacturer, year: @year)
-    end
-    @components = categorize_components
 
+    if params[:boat_id]
+      @boat = Boat.find(params[:boat_id])
+    end
+    
+    @components = categorize_components
   end
 
   # GET /components/1
   def show
+    @boat = Boat.find(params[:boat_id]) if params[:boat_id]
     respond_to do |format|
       format.html
       format.json { render json: @component }
@@ -26,9 +25,21 @@ class ComponentsController < ApplicationController
 
   # GET /components/new
   def new
-    @component = Component.new
-    @boat = Boat.find(params[:boat_id]) if params[:boat_id].present?  
-    @category = params[:category].pluralize if params[:category].present?  
+    if params[:category].present?
+      @component = Component.new(category: params[:category])
+    else
+      @component = Component.new
+    end 
+
+    if params[:boat_id].present?
+      @wiring_harnesses = Boat.find(params[:boat_id]).wiring_harnesses
+    else
+      @wiring_harnesses = WiringHarness.all
+    end
+
+    @category = params[:category].pluralize if params[:category].present?
+
+
   end
 
   # GET /components/1/edit
@@ -37,7 +48,12 @@ class ComponentsController < ApplicationController
 
   # POST /components
   def create
-    @component = Component.new(component_params)
+    if component_params[:wiring_harnees_id].present?
+      @wiring_harness = WiringHarness.find(component_params[:wiring_harness_id])
+      @component = @wiring_harness.components.build(component_params)
+    else
+      @component = Component.new(component_params)
+    end
 
     if @component.save
       redirect_to components_path, notice: "Component was successfully created."
@@ -68,8 +84,8 @@ class ComponentsController < ApplicationController
   private
 
   def categorize_components
-    if @boat
-      Component.where(boat_id: @boat.id).group_by(&:category)
+    if params[:boat_id].present?
+      @boat.components.group_by(&:category)
     else
       Component.all.group_by(&:category)
     end
@@ -94,6 +110,6 @@ class ComponentsController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def component_params
-    params.require(:component).permit(:label, :boat_id, :category, :description)
+    params.require(:component).permit(:label, :category, :description, :wiring_harness_id)
   end
 end

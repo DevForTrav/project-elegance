@@ -1,14 +1,19 @@
 <div class="p-4 bg-white rounded-lg shadow-sm">
   <div class="flex justify-between">
     <div class="">
-      <h2 class="text-2xl font-bold"><%= @component.boat_name %></h2>
-      <h1 class="text-xl font-medium"><%= @component.label %></h1>
+      <h2 class="text-2xl font-bold"><%= @component.wiring_harness.name.titleize %></h2>
+      <h3 class="text-xl font-medium"><%= @component.label %></h3>
     </div>
     <div class="">
       <%= link_to "Back", :back, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
     </div>
-  </div>
-  <%= image_tag("boat_layout.jpeg", width: 500, class: "p-4") %>
+  </div> 
+
+  <% if @component.boat_component(@boat.id).boat_component_layout.attached? %>
+    <%= image_tag @component.boat_component(@boat.id).boat_component_layout, width: 500, class: "p-4" %>
+  <% else %>
+    <%= image_tag("boat_layout.png", width: 500, class: "p-4") %>
+  <% end %>
 </div>
 <div class="pb-4 my-4 bg-white border rounded-lg ">
   <div class="pt-10">
@@ -48,7 +53,33 @@
 
               <div data-dropdown-target="menu" data-id="circuitDropdown1">
                 <div class="grid grid-cols-6 bg-white border-b-2 " data-controller="">
-                  <%= image_tag "circuit-diagram-example.png", width: 300, id:"circuit-image", class: "rounded-md p-3"%>
+                  <% if @boat.present? && @boat.boat_circuit(circuit.id ).present? %>
+                    <div class="relative col-span-1" data-controller="image-handler">
+                      <%= image_tag @boat.boat_circuit(circuit.id ).boat_circuit_layout, class: "rounded-md w-full pe-2", data: { action: "mouseovr->image-handler#expand" , image_handler_target: "image"}%>
+                      <button id="expand-image-button" class="absolute bottom-0 right-0 p-2 rounded-full hover:bg-opacity-25 hover:bg-gray-500" data-action="image-handler#expand">
+                        <svg id="expand-image-svg" xmlns="http://www.w3.org/2000/svg" height="14" width="14" viewBox="0 0 512 512" class=""><!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M344 0H488c13.3 0 24 10.7 24 24V168c0 9.7-5.8 18.5-14.8 22.2s-19.3 1.7-26.2-5.2l-39-39-87 87c-9.4 9.4-24.6 9.4-33.9 0l-32-32c-9.4-9.4-9.4-24.6 0-33.9l87-87L327 41c-6.9-6.9-8.9-17.2-5.2-26.2S334.3 0 344 0zM168 512H24c-13.3 0-24-10.7-24-24V344c0-9.7 5.8-18.5 14.8-22.2s19.3-1.7 26.2 5.2l39 39 87-87c9.4-9.4 24.6-9.4 33.9 0l32 32c9.4 9.4 9.4 24.6 0 33.9l-87 87 39 39c6.9 6.9 8.9 17.2 5.2 26.2s-12.5 14.8-22.2 14.8z"/></svg>
+                      </button>
+                      <%# EXPANDED IMAGE MODAL %>
+                      <div id=""  data-image-handler-target="imageModal" class="fixed top-0 left-0 z-40 items-center justify-center hidden w-full h-full bg-black bg-opacity-75">
+                        <div class="fixed">
+                          <button id="exit-expanded-image" class="absolute top-0 right-0 p-2 m-2 bg-gray-200 rounded-full hover:bg-opacity-25 hover:bg-gray-500" data-action="image-handler#hide">
+                            <svg xmlns="http://www.w3.org/2000/svg" height="16" width="12" viewBox="0 0 384 512"><!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M376.6 84.5c11.3-13.6 9.5-33.8-4.1-45.1s-33.8-9.5-45.1 4.1L192 206 56.6 43.5C45.3 29.9 25.1 28.1 11.5 39.4S-3.9 70.9 7.4 84.5L150.3 256 7.4 427.5c-11.3 13.6-9.5 33.8 4.1 45.1s33.8 9.5 45.1-4.1L192 306 327.4 468.5c11.3 13.6 31.5 15.4 45.1 4.1s15.4-31.5 4.1-45.1L233.7 256 376.6 84.5z"/></svg>
+                          </button>
+                          <%= image_tag @boat.boat_circuit(circuit.id ).boat_circuit_layout, width: 800, class: "flex justify-center rounded-lg"%>
+                        </div>
+                      </div>
+                    </div>
+                  <% elsif @boat.present? && !defined?(@boat.boat_circuit(@circuit.id)) %>
+                    <%= link_to new_boat_boat_circuit_path(circuit_id: circuit.id, boat_id: @boat.id), data: { turbo_frame: :right_form_modal } do %>
+                      <div class="relative col-span-1">
+                        <%= image_tag "boat_layout.png", class: "rounded-md w-full pe-2", data: { action: "mouseovr->image-handler#expand" , image_handler_target: "image"}%>
+                      </div>      
+                    <% end %>
+                  <% else %>
+                    <div class="relative col-span-1">
+                      <%= image_tag "boat_layout.png", class: "rounded-md w-full pe-2", data: { action: "mouseovr->image-handler#expand" , image_handler_target: "image"}%>
+                    </div>      
+                  <% end %>
                   <div class="flex items-center ps-2">
                     <%= "Circuit #{circuit.label}" %>
                   </div>
@@ -59,14 +90,16 @@
                     <%= circuit.kind %>
                   </div>
                   <div class="flex items-center">
-                    <div class="">
-                      <div class="flex items-center">
+                    <%= link_to wiring_harness_connector_path(circuit.p1_connector.id), data: {turbo_frame: "_top"} do %>
+                      <div class="p-1 text-white bg-blue-400 rounded-lg">
                         <%= circuit.p1_connector.label %>
                       </div>
-                      <div class="flex items-center">
+                    <% end %>
+                    <%= link_to wiring_harness_connector_path(circuit.p1_connector.id), data: {turbo_frame: "_top"} do %>
+                      <div class="p-1 text-white bg-blue-400 rounded-lg ms-2 ">
                         <%= circuit.model_name.name == "Circuit" ? circuit.p2_connector.label : circuit.wiring_harness_connector %>
                       </div>
-                    </div>
+                    <% end %>
                   </div>
                   <div class="flex items-center justify-center">
                     <% if  circuit.model_name.name == 'Circuit'%>

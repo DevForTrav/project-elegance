@@ -3,7 +3,7 @@ class WiringHarnessesController < ApplicationController
 
   # GET /wiring_harnesses
   def index
-    @wiring_harnesses = WiringHarness.all
+    @wiring_harnesses = WiringHarness.all.includes(:components)
   end
 
   # GET /wiring_harnesses/1

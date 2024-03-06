@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_02_09_184349) do
+ActiveRecord::Schema[7.0].define(version: 2024_02_24_233811) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -44,6 +44,24 @@ ActiveRecord::Schema[7.0].define(version: 2024_02_09_184349) do
     t.bigint "blob_id", null: false
     t.string "variation_digest", null: false
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
+  end
+
+  create_table "boat_circuits", force: :cascade do |t|
+    t.bigint "boat_id", null: false
+    t.bigint "circuit_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["boat_id"], name: "index_boat_circuits_on_boat_id"
+    t.index ["circuit_id"], name: "index_boat_circuits_on_circuit_id"
+  end
+
+  create_table "boat_components", force: :cascade do |t|
+    t.bigint "boat_id", null: false
+    t.bigint "component_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["boat_id"], name: "index_boat_components_on_boat_id"
+    t.index ["component_id"], name: "index_boat_components_on_component_id"
   end
 
   create_table "boat_wiring_harnesses", force: :cascade do |t|
@@ -93,12 +111,12 @@ ActiveRecord::Schema[7.0].define(version: 2024_02_09_184349) do
 
   create_table "components", force: :cascade do |t|
     t.string "label"
-    t.bigint "boat_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "category"
     t.string "description"
-    t.index ["boat_id"], name: "index_components_on_boat_id"
+    t.bigint "wiring_harness_id"
+    t.index ["wiring_harness_id"], name: "index_components_on_wiring_harness_id"
   end
 
   create_table "connectors", force: :cascade do |t|
@@ -172,6 +190,10 @@ ActiveRecord::Schema[7.0].define(version: 2024_02_09_184349) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "boat_circuits", "boats"
+  add_foreign_key "boat_circuits", "circuits"
+  add_foreign_key "boat_components", "boats"
+  add_foreign_key "boat_components", "components"
   add_foreign_key "boat_wiring_harnesses", "boats"
   add_foreign_key "boat_wiring_harnesses", "wiring_harnesses"
   add_foreign_key "circuits", "circuits", column: "twisted_with_id"
@@ -181,7 +203,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_02_09_184349) do
   add_foreign_key "circuits", "wiring_harness_connectors", column: "p1_connector_id"
   add_foreign_key "circuits", "wiring_harness_connectors", column: "p2_connector_id"
   add_foreign_key "circuits", "wiring_harnesses"
-  add_foreign_key "components", "boats"
+  add_foreign_key "components", "wiring_harnesses"
   add_foreign_key "connectors", "terminals"
   add_foreign_key "connectors", "terminals", column: "secondary_terminal_id"
   add_foreign_key "splices", "circuits"

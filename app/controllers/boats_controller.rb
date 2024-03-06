@@ -9,7 +9,7 @@ class BoatsController < ApplicationController
 
   # GET /boats/1
   def show
-    @wiring_harnesses = @boat.wiring_harnesses
+    @wiring_harnesses = @boat.wiring_harnesses.includes(:components)
   end
 
   # GET /boats/new
@@ -72,7 +72,7 @@ class BoatsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_boat
-      @boat = Boat.find(params[:id])
+      @boat = Boat.find(params[:id])  
     end
 
     # Only allow a list of trusted parameters through.

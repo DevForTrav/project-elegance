@@ -1,0 +1,41 @@
+<%= form_with(model: boat_circuit, class: "contents") do |form| %>
+  <% if boat_circuit.errors.any? %>
+    <div id="error_explanation" class="bg-red-50 text-red-500 px-3 py-2 font-medium rounded-lg mt-3">
+      <h2><%= pluralize(boat_circuit.errors.count, "error") %> prohibited this boat_circuit from being saved:</h2>
+
+      <ul>
+        <% boat_circuit.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <% unless @boat.present?%>
+    <div class="my-5">
+      <%= form.label :boat_id %>
+      <%= form.text_field :boat_id, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
+    </div>
+  <% else %>
+    <%= form.hidden_field :boat_id, value: @boat.id %>
+  <% end %>
+
+  <% unless @circuit.present?%>
+    <div class="my-5">
+      <%= form.label :circuit_id %>
+      <%= form.text_field :circuit_id, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
+    </div>
+  <% else %>
+    <%= form.hidden_field :circuit_id, value: @circuit.id %>
+  <% end %>
+
+  <div class="my-5">
+    <%= form.label :boat_circuit_layout %>
+    <%= form.file_field :boat_circuit_layout, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
+  </div>
+
+  <div class="flex">
+    <%= form.submit class: "rounded-lg py-3 px-5 bg-blue-600 text-white inline-block font-medium cursor-pointer" %>
+    <%= form.submit "Cancel", type: 'button', class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium", data: { action: "click->right-form-modal#toggleForm" } %>
+  </div>
+<% end %>

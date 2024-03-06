@@ -2,7 +2,7 @@
   <h3 class="text-lg">Wiring Harnesses:</h3>
   <div class="flex" id="wiring-harnesses-list">
     <% @wiring_harnesses.each do |wiring_harness| %>
-      <%= link_to wiring_harness_path(wiring_harness), class: "rounded-lg text-white px-2 bg-blue-300 mr-2" do %>
+      <%= link_to wiring_harness_path(wiring_harness), class: "rounded-lg text-white px-2 bg-blue-400 mr-2 shadow-md" do %>
         <%= wiring_harness.name.titleize %>
       <% end %>
     <% end %>

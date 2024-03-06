@@ -1,0 +1,10 @@
+<%= turbo_frame_tag :right_form_modal do %>
+  <%= render "layouts/right_form_modal" do %>
+    <div class="mx-auto md:w-2/3 w-full">
+      <h1 class="font-bold text-4xl">Add Boat Layout</h1>
+
+      <%= render "form", boat_component: @boat_component %>
+
+    </div>
+  <% end %>
+<% end %>
