@@ -8,8 +8,7 @@
       <%= link_to "Back", :back, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
     </div>
   </div> 
-
-  <% if @component.boat_component(@boat.id).boat_component_layout.attached? %>
+  <% if @component.boat_component(@boat.id)&.boat_component_layout&.attached? %>
     <%= image_tag @component.boat_component(@boat.id).boat_component_layout, width: 500, class: "p-4" %>
   <% else %>
     <%= image_tag("boat_layout.png", width: 500, class: "p-4") %>
