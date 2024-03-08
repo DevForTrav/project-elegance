@@ -57,8 +57,10 @@ class ComponentsController < ApplicationController
 
     respond_to do |format|
       if @component.save
-        format.html { redirect_to components_path, notice: "Component was successfully created." }
+
+        format.html { redirect_to components_path }
         format.turbo_stream
+        flash[:notice] = "Component #{@component.label} was successfully created."
       else
         render :new, status: :unprocessable_entity
       end
