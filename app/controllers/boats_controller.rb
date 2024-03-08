@@ -9,6 +9,7 @@ class BoatsController < ApplicationController
 
   # GET /boats/1
   def show
+    @components = @boat.categorized_components
     @wiring_harnesses = @boat.wiring_harnesses.includes(:components)
   end
 

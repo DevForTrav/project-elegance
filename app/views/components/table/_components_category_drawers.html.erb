@@ -1,0 +1,33 @@
+<div class="flex items-center justify-between">
+  <h1 class="text-4xl font-bold">Components</h1>
+  <%= link_to "New component", new_component_path, class: "rounded-lg py-3 px-5 bg-blue-600 text-white block font-medium", data: { turbo_frame: :right_form_modal} %>
+</div>
+
+<div class="m-1 rounded-lg ">
+  <% @components.each do |category, components| %>
+    <% if components.present? %>
+      <div class="p-5 mt-4 bg-white border rounded-lg shadow-sm" data-controller="dropdown" id="category-container">
+        <button class="flex justify-between w-full" type="button" data-dropdown-target="button" data-action="dropdown#toggle keydown.esc->dropdown#hide">
+          <span class="font-bold text-md " >
+            <%= category.titleize  %>
+          </span>
+          <svg data-dropdown-target="caret" class="hover:rotate-180" xmlns="http://www.w3.org/2000/svg" height="16" width="14" viewBox="0 0 448 512"><path d="M201.4 137.4c12.5-12.5 32.8-12.5 45.3 0l160 160c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L224 205.3 86.6 342.6c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3l160-160z"/></svg>
+        </button>
+        <div
+          class="hidden mt-3 bg-white"
+          data-dropdown-target="menu"
+        >
+          <div class="">
+            <%= render "components/table/components_table_headers", category: category %>
+
+            <div id=<%= "#{category}-table-items"%> >
+              <%= render "components/table/components_table_items", components: components %>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% else %>
+      <%= render "components/table/empty_state" %>
+    <% end %>
+  <% end %>
+</div>

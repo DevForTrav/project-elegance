@@ -11,7 +11,7 @@
         <div>
           <% if action_name == 'show'%>
             <%= render "layouts/dropdown_options", button: "<svg xmlns=\"http://www.w3.org/2000/svg\" height=\"16\" width=\"4\" viewBox=\"0 0 128 512\"><!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d=\"M64 360a56 56 0 1 0 0 112 56 56 0 1 0 0-112zm0-160a56 56 0 1 0 0 112 56 56 0 1 0 0-112zM120 96A56 56 0 1 0 8 96a56 56 0 1 0 112 0z\"/></svg>" do %>
-              <%= link_to "Edit this boat", edit_boat_path(boat), class: "text-gray-700 block px-4 py-2 text-sm" %>
+              <%= link_to "Edit this boat", edit_boat_path(boat), class: "text-gray-700 block px-4 py-2 text-sm", data: { turbo_frame: :right_form_modal } %>
               <%= button_to "Destroy this boat", boat_path(boat), method: :delete, class: "text-gray-700 block px-4 py-2 text-sm" %>
               <%= link_to "Add Wiring Harness", new_boat_boat_wiring_harness_path(boat), class: "text-gray-700 block px-4 py-2 text-sm", data: { turbo_frame: :right_form_modal } %>
             <% end %>
@@ -22,3 +22,8 @@
     <%= render "wiring_harness_list" %> 
   </div>
 </div>
+
+<div class="pt-10">
+  <%= render "components/table/components_category_drawers" %> 
+</div>
+
