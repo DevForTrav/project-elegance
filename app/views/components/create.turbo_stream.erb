@@ -1,6 +1,14 @@
+<%= turbo_stream.replace("flash") do %>
+  <%= turbo_frame_tag :flash %>
+<% end %>
+
 <%= turbo_stream.replace("right_form_modal") do %>
   <%= turbo_frame_tag :right_form_modal %>
 <% end %>
+
+<%= turbo_stream.update("flash", partial: "layouts/flash_messages", locals: {flash: flash} )%>
+
+<% flash.discard %>
 
 <%= turbo_stream.prepend "#{@component.category}-table-items" do%>
   <%= render "components/table/component_row", component: @component %>

@@ -28,17 +28,20 @@ class BoatWiringHarnessesController < ApplicationController
   def create
     if params[:boat_id].present?
       @boat = Boat.find_by(id: params[:boat_id])
+      
       @boat_wiring_harness = @boat.boat_wiring_harnesses.build(boat_wiring_harness_params)
+    
     else
       @boat_wiring_harness = BoatWiringHarness.new(boat_wiring_harness_params)
     end
 
     @wiring_harness = @boat_wiring_harness.wiring_harness
     if @boat_wiring_harness.save
+      @components = @boat.categorized_components
       respond_to do |format|
         format.html { redirect_to @boat, notice: "Boat wiring harness was successfully created." }
         format.turbo_stream
-
+        flash[:notice] = "#{@wiring_harness.name} was added to #{@boat.name}"
       end
     else
       render :new, status: :unprocessable_entity
