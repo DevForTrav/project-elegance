@@ -55,11 +55,14 @@ class ComponentsController < ApplicationController
       @component = Component.new(component_params)
     end
 
-    if @component.save
-      redirect_to components_path, notice: "Component was successfully created."
-    else
-      render :new, status: :unprocessable_entity
-    end
+    respond_to do |format|
+      if @component.save
+        format.html { redirect_to components_path, notice: "Component was successfully created." }
+        format.turbo_stream
+      else
+        render :new, status: :unprocessable_entity
+      end
+    end 
   end
 
   # PATCH/PUT /components/1

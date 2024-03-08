@@ -1,8 +1,12 @@
-<div class="mx-auto md:w-2/3 w-full">
-  <h1 class="font-bold text-4xl">Editing component</h1>
+<%= turbo_frame_tag :right_form_modal do %>
+  <%= render "layouts/right_form_modal" do %>
+    <div class="w-full mx-auto md:w-2/3">
+      <h1 class="text-4xl font-bold">Editing component</h1>
 
-  <%= render "form", component: @component %>
+      <%= render "form", component: @component %>
 
-  <%= link_to "Show this component", @component, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
-  <%= link_to "Back to components", components_path, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
-</div>
+      <%= link_to "Show this component", @component, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+      <%= link_to "Back to components", components_path, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+    </div>
+  <% end %>
+<% end %>
