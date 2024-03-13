@@ -6,7 +6,7 @@
   </div>
 
   <div class="m-1 rounded-lg ">
-    <% @components.each do |category, components| %>
+    <% @components&.each do |category, components| %>
       <% if components.present? %>
         <div class="p-5 mt-4 bg-white border rounded-lg shadow-sm" data-controller="dropdown" id="category-container">
           <button class="flex justify-between w-full" type="button" data-dropdown-target="button" data-action="dropdown#toggle keydown.esc->dropdown#hide">

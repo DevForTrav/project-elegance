@@ -1,8 +1,8 @@
 <%= link_to boat_path(boat) do %>
   <div id="<%= dom_id(boat) %>" class="h-full bg-white border rounded-lg shadow-sm hover:shadow-md">
     <div class="min-w-full">
-      <% if boat.image.attached? %>    
-        <%= image_tag boat.image, { width: "500px", class: "p-2 rounded  bg-white" }%>
+      <% if boat.side_view_image.attached? %>    
+        <%= image_tag boat.side_view_image, { width: "500px", class: "p-2 rounded  bg-white" }%>
       <% end %>
     </div>
     <h2 class="p-3 text-xl font-bold "> <%= boat.name  %> </h2>

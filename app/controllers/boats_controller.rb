@@ -78,6 +78,6 @@ class BoatsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def boat_params
-      params.require(:boat).permit(:year, :model, :manufacturer, :image)
+      params.require(:boat).permit(:year, :model, :manufacturer, :side_view_image)
     end
 end

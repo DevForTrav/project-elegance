@@ -6,7 +6,7 @@ class Boat < ApplicationRecord
   has_many :boat_components
   has_many :circuits, through: :wiring_harnesses
 
-  has_one_attached :image
+  has_one_attached :side_view_image
 
   def name
     "#{year} #{manufacturer} #{model}"
